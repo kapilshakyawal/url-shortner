@@ -18,7 +18,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Input),
     };
-    await fetch("http://localhost:9000/urlshort", requestOptions)
+    await fetch("https://url-shortner-backend-08id.onrender.com/urlshort", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
