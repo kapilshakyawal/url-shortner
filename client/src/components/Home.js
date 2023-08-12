@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
 import copy from "copy-to-clipboard";
+import { Loader } from "./Loader";
 
 let result;
 const Home = () => {
   const [CopyText, setCopyText] = useState();
+  const [Loader, setLoader] = useState(false);
   const [Input, setInput] = useState({
     longUrl: "",
   });
@@ -18,14 +20,19 @@ const Home = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Input),
     };
-    await fetch("https://url-shortner-backend-08id.onrender.com/urlshort", requestOptions)
+    setLoader(true);
+    await fetch(
+      "https://url-shortner-backend-08id.onrender.com/urlshort",
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         console.log(data.success);
         result = data;
-        console.log(result.success)
+        console.log(result.success);
         setCopyText(data.url.shortUrl);
+        setLoader(false);
       });
   };
 
@@ -53,25 +60,32 @@ const Home = () => {
             required
           />
         </div>
-          <button
-            onClick={handleSubmit}
-            className="bg-white text-xl px-10 py-2 rounded-lg text-gray-900 font-bold m-10 min-w-fit"
-          >
-            GET
-          </button>
+        <button
+          onClick={handleSubmit}
+          className="bg-white text-xl px-10 py-2 rounded-lg text-gray-900 font-bold m-10 min-w-fit"
+        >
+          { Loader ? <Loader /> : "GET"}
+        </button>
       </form>
 
-      {result ?( <div className="flex justify-center align-middle flex-col items-center">
-        <div  className="bg-white text-2xl text-blue-900 px-10 py-3 rounded-xl" >
-          <span className="text-blue-900 font-bold">{CopyText}</span>
+      {result ? (
+        <div className="flex justify-center align-middle flex-col items-center">
+          <div className="bg-white text-2xl text-blue-900 px-10 py-3 rounded-xl">
+            <span className="text-blue-900 font-bold">{CopyText}</span>
+          </div>
+          <div>
+            <button
+              onClick={copyText}
+              className="text-white bg-blue-500 px-5 py-3 rounded-full mt-5 font-bold focus:bg-green-400"
+            >
+              Copy to clipboard the link
+            </button>
+          </div>
         </div>
-        <div>
-          <button onClick={copyText} className="text-white bg-blue-500 px-5 py-3 rounded-full mt-5 font-bold focus:bg-green-400">
-            Copy to clipboard the link
-          </button>
-        </div>
-      </div>): "" }
-      
+      ) : (
+        ""
+      )}
+
       {/* </div> */}
       {/* <div> */}
     </section>
