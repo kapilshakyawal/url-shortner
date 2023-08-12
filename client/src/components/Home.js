@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import copy from "copy-to-clipboard";
-import Loader from "./Loader";
+import {Loader} from "./Loader";
 
 let result;
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Input),
     };
-    setLoader(true);
+    setLoadering(true);
     await fetch(
       "https://url-shortner-backend-08id.onrender.com/urlshort",
       requestOptions
@@ -32,7 +32,7 @@ const Home = () => {
         result = data;
         console.log(result.success);
         setCopyText(data.url.shortUrl);
-        setLoader(false);
+        setLoadering(false);
       });
   };
 
