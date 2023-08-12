@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 import copy from "copy-to-clipboard";
-import { Loader } from "./Loader";
+import Loader from "./Loader";
 
 let result;
 const Home = () => {
   const [CopyText, setCopyText] = useState();
-  const [Loader, setLoader] = useState(false);
+  const [Loadering, setLoadering] = useState(false);
   const [Input, setInput] = useState({
     longUrl: "",
   });
@@ -64,7 +64,7 @@ const Home = () => {
           onClick={handleSubmit}
           className="bg-white text-xl px-10 py-2 rounded-lg text-gray-900 font-bold m-10 min-w-fit"
         >
-          { Loader ? <Loader /> : "GET"}
+          { Loadering ? <Loader /> : "GET"}
         </button>
       </form>
 
